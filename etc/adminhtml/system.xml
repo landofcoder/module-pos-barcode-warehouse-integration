@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="landofcoder" sortOrder="999" translate="label">
+            <label>landofcoder</label>
+        </tab>
+        <section id="barcode" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <group id="barcode_warehouse" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="35" translate="label">
+                <label>Barcode For Warehouse</label>
+                <field id="generate_barcode_warehouse" translate="label comment" type="button" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Lof\BarcodeWarehouseIntegration\Block\Adminhtml\System\Config\Generate</frontend_model>
+                    <label>Generate Barcode for Warehouse</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

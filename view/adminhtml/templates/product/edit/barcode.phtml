@@ -1,0 +1,81 @@
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $warehouseCollection = $objectManager->create('Lof\Inventory\Model\ResourceModel\Warehouse\Collection');
+    $barcode_collection = $block->getBarcodes();
+    $product = $block->getProduct();
+    $count = 0;
+    $warehouseList = "";
+    foreach ($warehouseCollection as $value) {
+        $warehouseList .= "<option data-validate='{\"required\":true} value='".$value->getWarehouseCode()."'>".$value->getWarehouseCode()."</option>";
+    }
+    $selectWarehouse = "";
+    $selectWarehouse .= "<select  class =\"admin__control-select\" id=\"warehouse_code\">".$warehouseList."</select>"
+
+?>
+<div class="entry-edit custom-options barcode_options">
+    <div id="barcode_options_container" class="box">
+        <div id="barcode_options_container_top">
+            <div id="barcode_options_container_top">
+                <table cellpadding="0" class="barcode" style="font-weight: bold">
+                    <tr class="header">
+                        <td class="name_barcode"><?= __("Barcode")?></td>
+                        <td class="qty_barcode"><?= __("Qty")?></td>
+                        <td class="warehouse_code"><?= __("Warehouse Code")?></td>
+                        <td class="add_new"><button class="lof_multibarcode_add" type="button" title="Add New Option" id="add_new_barcode">Add</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <form data-mage-init='{"validation":{}}' id="multi_bar" method="post" autocomplete="off">
+            <?php
+            if ($product->getId()) {
+                foreach ($barcode_collection as $col) {
+                    if ($col->getProductId() == $product->getId()) {
+                        ?>
+                        <div class="option-box-barcode">
+                            <table cellspacing="0" cellpadding="0" class="barcode" ">
+                            <tbody>
+                                    <tr>
+                                        <td class="name_barcode">
+                                            <input placeholder="At least 9 and no more than 12 characters" data-validate='{"required":true, "maxlength":12, "minlength":"9"}' data-form-part='product_form' name="barcodearr[name][<?= $count?>]" id="name_barcode[<?=$count?>]" value="<?php echo $col->getBarcode(); ?>"></input>
+                                        </td>
+                                        <td class="qty_barcode">
+                                            <input data-validate='{"required":true,"number":true, "min":1, "max":9999999}' data-form-part='product_form' name="barcodearr[qty][<?= $count?>] id="qty_barcode[<?=$count?>]" value="<?php echo $col->getQty(); ?>"></input>
+                                        </td>
+                                        <td class="warehouse_code">
+                                            <select  class ="admin__control-select" id="warehouse_code">
+                                                <option value="<?= $col->getWarehouseCode()?>"><?=$col->getWarehouseCode()?></option>
+                                            </select>
+                                        </td>
+                                        <td class="delete_barcode">
+                                            <button class="lof_multibarcode_delete" type="button" data-todelete="<?php echo $count; ?>" title="Delete" id="delete_barcode">Delete</button>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <?php
+                        $count++;
+                    }
+                }
+            }
+            ?>
+        </form>
+    </div>
+</div>
+<!---->
+<?php
+$formData = [
+    'count' => $count,
+    'warehouse' => $warehouseList
+];
+$serializedFormData = $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($formData);
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "barcodeoption": <?php  echo $serializedFormData; ?>
+        }
+    }
+</script>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Lof_BarcodeWarehouseIntegraion::barcode" sortOrder="10" title="Barcode Inventory">
+                    <resource id="Lof_BarcodeWarehouseIntegraion::generate" sortOrder="10" title="Generate Barcode"/>
+                    <resource id="Lof_BarcodeWarehouseIntegraion::save" sortOrder="10" title="Save"/>
+                    <resource id="Lof_BarcodeWarehouseIntegraion::new_action" sortOrder="10" title="New Action"/>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
