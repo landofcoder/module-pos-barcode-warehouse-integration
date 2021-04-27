@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add action="lof_barcode_warehouse/adjuststock/new" id="Lof_BarcodeWarehouseIntegration::adjust_stock_new_barcode" module="Lof_BarcodeWarehouseIntegration"
-             parent="Lof_Inventory::adjust_stock" resource="Magento_Backend::content" sortOrder="15"
+             parent="Lof_Pos::pos" resource="Magento_Backend::content" sortOrder="15"
              title="Barcode Stock Ajdustment"/>
     </menu>
 </config>
